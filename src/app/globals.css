@@ -1,42 +1,193 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 17, 24, 39;
+  --background-end-rgb: 11, 15, 25;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+    135deg,
+    rgb(var(--background-start-rgb)),
+    rgb(var(--background-end-rgb))
+  );
+  font-feature-settings: "ss01" on, "ss02" on, "cv01" on, "cv02" on;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold tracking-tight text-gray-100;
+  }
+
+  ::-webkit-scrollbar {
+    @apply w-2;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-gray-800;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-600 rounded-full hover:bg-gray-500 transition-colors;
   }
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
-}
+@layer components {
+  .card-dashboard {
+    @apply bg-gray-900/50 backdrop-blur-sm rounded-xl border border-gray-700/50 shadow-xl;
+  }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+  .tremor-Card-root {
+    @apply bg-gray-900/50 border-gray-700/50 shadow-xl backdrop-blur-sm transition-all duration-200 hover:shadow-2xl hover:border-gray-600/50;
+  }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+  .tremor-Title-root {
+    @apply text-gray-100 font-semibold;
+  }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+  .tremor-Text-root {
+    @apply text-gray-300;
+  }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+  .tremor-TableCell-root {
+    @apply text-gray-300 border-gray-700;
+  }
+
+  .tremor-TableHeaderCell-root {
+    @apply text-gray-200 border-gray-700 font-semibold;
+  }
+
+  .tremor-Legend-root {
+    @apply text-gray-300;
+  }
+
+  .tremor-Legend-label {
+    @apply text-gray-400;
+  }
+
+  .tremor-Select-root {
+    @apply bg-gray-800/50 border-gray-700/50;
+  }
+
+  .tremor-Select-button {
+    @apply text-gray-100;
+  }
+
+  .tremor-Select-panel {
+    @apply bg-gray-800 border-gray-700;
+  }
+
+  .tremor-SelectItem-root {
+    @apply text-gray-100 hover:bg-gray-700;
+  }
+
+  .tremor-Chart-axis {
+    @apply text-gray-400;
+  }
+
+  .tremor-Chart-grid {
+    @apply stroke-gray-700;
+  }
+
+  .tremor-Chart-tooltip {
+    @apply bg-gray-800 border-gray-700 text-gray-100;
+  }
+
+  /* Estilos para os gráficos */
+  .tremor-AreaChart,
+  .tremor-BarChart,
+  .tremor-DonutChart,
+  .tremor-LineChart {
+    @apply text-gray-100;
+  }
+
+  .tremor-Chart-line {
+    @apply stroke-current;
+  }
+
+  .tremor-Chart-area {
+    @apply fill-current opacity-20;
+  }
+
+  .tremor-Chart-bar {
+    @apply fill-current;
+  }
+
+  .tremor-Chart-donut {
+    @apply stroke-current;
+  }
+
+  /* Estilos para os cards */
+  .card-stats {
+    @apply bg-gray-900/50 backdrop-blur-sm border-gray-700/50 rounded-lg p-6 transition-all duration-200 hover:shadow-lg hover:border-gray-600/50;
+  }
+
+  .card-stats-title {
+    @apply text-gray-100 font-semibold text-lg mb-4;
+  }
+
+  .card-stats-value {
+    @apply text-gray-100 font-bold text-3xl;
+  }
+
+  .card-stats-description {
+    @apply text-gray-400 text-sm mt-2;
+  }
+
+  /* Estilos para os elementos interativos */
+  .interactive-element {
+    @apply transition-all duration-200;
+  }
+
+  .interactive-element:hover {
+    @apply opacity-80;
+  }
+
+  .interactive-element:active {
+    @apply opacity-70;
+  }
+
+  /* Estilos específicos para o mapa do Brasil */
+  .rsm-geography {
+    @apply transition-all duration-200;
+  }
+
+  .rsm-geography:hover {
+    @apply cursor-pointer;
+  }
+
+  .rsm-zoomable-group {
+    @apply cursor-grab active:cursor-grabbing;
+  }
+
+  /* Estilos para o mapa regional */
+  .regional-map {
+    @apply relative w-full h-full;
+  }
+
+  .regional-map-container {
+    @apply absolute inset-0;
+  }
+
+  .regional-map-state {
+    @apply transition-all duration-200;
+  }
+
+  .regional-map-state:hover {
+    @apply fill-gray-100 cursor-pointer;
+  }
+
+  .regional-map-state-selected {
+    @apply fill-red-500;
+  }
+
+  .regional-map-tooltip {
+    @apply absolute bg-gray-800 text-gray-100 px-3 py-2 rounded-lg shadow-lg text-sm pointer-events-none transform -translate-x-1/2 -translate-y-full;
   }
 }
