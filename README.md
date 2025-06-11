@@ -25,7 +25,7 @@ Um dashboard moderno e interativo para visualização dos dados da COVID-19 no B
 
 1. Clone o repositório:
 ```bash
-git clone https://github.com/seu-usuario/covid19-dashboard.git
+git clone git clone https://github.com/seu-usuario/covid19-dashboard.git
 cd covid19-dashboard
 ```
 
