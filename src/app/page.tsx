@@ -5,6 +5,7 @@ import { StatesTable } from '@/components/StatesTable'
 import { DonutChart } from '@/components/DonutChart'
 import InsightsDashboard from '@/components/InsightsDashboard'
 import RegionalMap from '@/components/RegionalMap'
+import { SymptomsStats } from '@/components/SymptomsStats'
 import { Grid, Col, Title, Text, Button } from '@tremor/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -70,6 +71,24 @@ export default function Dashboard() {
       totalDeaths: 704658,
       recovered: 36737859,
       activeCases: 171905,
+    },
+    symptoms: {
+      symptoms: [
+        { name: 'Febre', percentage: 87, severity: 'high' },
+        { name: 'Tosse Seca', percentage: 68, severity: 'high' },
+        { name: 'Fadiga', percentage: 38, severity: 'medium' },
+        { name: 'Perda de Paladar', percentage: 23, severity: 'medium' },
+        { name: 'Perda de Olfato', percentage: 21, severity: 'medium' },
+        { name: 'Dificuldade Respiratória', percentage: 19, severity: 'high' },
+        { name: 'Dores Musculares', percentage: 15, severity: 'low' },
+        { name: 'Dor de Garganta', percentage: 14, severity: 'low' }
+      ],
+      statistics: {
+        averageRecoveryTime: 14,
+        hospitalizationRate: 5.2,
+        icuAdmissionRate: 1.8,
+        asymptomaticRate: 40
+      }
     },
     stateData: [
       { state: 'SP', cases: 6889543, deaths: 177853, recovered: 6623478, inflation: 5.2 },
@@ -252,7 +271,16 @@ export default function Dashboard() {
         </Card>
       </motion.div>
 
-      <Grid numItems={1} numItemsLg={2} className="gap-6 mt-6">
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 0.7 }}
+        className="mt-12"
+      >
+        <SymptomsStats data={mockData.symptoms} />
+      </motion.div>
+
+      <Grid numItems={1} numItemsLg={2} className="gap-6 mt-12">
         <Col numColSpan={1} numColSpanLg={2}>
           <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
             <Title className="text-xl text-gray-100 mb-6">Distribuição de Casos</Title>
