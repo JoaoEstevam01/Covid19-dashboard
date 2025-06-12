@@ -2,7 +2,10 @@
 
 E aí! 👋 Esse é nosso projeto de dashboard para visualização dos dados da COVID-19 no Brasil. A gente desenvolveu usando Next.js, Three.js e outras tecnologias legais para criar uma experiência interativa e informativa.
 
-![Dashboard Preview](public/dashboard-preview.png)
+<img src="/public/img/Tela-01.png" alt="Image Example" width="500px">
+<img src="/public/img/Tela-02.png" alt="Image Example" width="500px">
+<img src="/public/img/Tela-03.png" alt="Image Example" width="500px">
+<img src="/public/img/Tela-04.png" alt="Image Example" width="500px">
 
 ## ✨ O que tem de legal?
 
