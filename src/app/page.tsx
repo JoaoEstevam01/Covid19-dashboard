@@ -10,6 +10,7 @@ import { motion } from 'framer-motion'
 import { useState } from 'react'
 import { Globe, Map } from 'lucide-react'
 import { Card } from '@tremor/react'
+import Link from 'next/link'
 
 export default function Dashboard() {
   const [viewMode, setViewMode] = useState<'brazil' | 'world'>('brazil')
@@ -253,23 +254,31 @@ export default function Dashboard() {
 
       <Grid numItems={1} numItemsLg={2} className="gap-6 mt-6">
         <Col>
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-          >
-            <DonutChart data={mockData.kpi} />
-          </motion.div>
+          <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
+            <Title className="text-xl text-gray-100 mb-6">Distribuição de Casos</Title>
+            <DonutChart data={mockData.stateData} />
+          </Card>
+        </Col>
+        <Col>
+          <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
+            <Title className="text-xl text-gray-100 mb-6">Dados por Estado</Title>
+            <StatesTable data={mockData.stateData} />
+          </Card>
         </Col>
       </Grid>
 
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.8 }}
-      >
-        <StatesTable data={mockData.stateData} />
-      </motion.div>
+      <div className="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700/50 py-4 z-50">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-center">
+            <Link 
+              href="/doacoes" 
+              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
+            >
+              Faça uma Doação
+            </Link>
+          </div>
+        </div>
+      </div>
 
       <motion.footer
         initial={{ opacity: 0 }}
