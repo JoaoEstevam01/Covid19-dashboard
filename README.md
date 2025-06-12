@@ -1,52 +1,73 @@
-# Dashboard COVID-19 Brasil
+# 🦠 Dashboard COVID-19 Brasil
 
-Um dashboard moderno e interativo para visualização dos dados da COVID-19 no Brasil, construído com Next.js, Three.js e Tremor.
+E aí! 👋 Esse é nosso projeto de dashboard para visualização dos dados da COVID-19 no Brasil. A gente desenvolveu usando Next.js, Three.js e outras tecnologias legais para criar uma experiência interativa e informativa.
 
-## 🚀 Características
+![Dashboard Preview](public/dashboard-preview.png)
 
-- Design moderno e futurista com tema escuro
-- Mapa 3D interativo do Brasil
-- Gráficos e visualizações de dados em tempo real
-- Interface responsiva e intuitiva
-- Efeitos visuais avançados
+## ✨ O que tem de legal?
 
-## 🛠️ Tecnologias Utilizadas
+- Mapa 3D do Brasil que você pode interagir
+- Visual moderno com tema escuro (seus olhos agradecem 👀)
+- Dados em tempo real sobre casos, mortes e recuperações
+- Interface que funciona bem em qualquer dispositivo
+- Gráficos e visualizações maneiras para entender os dados
 
-- Next.js 14
-- React 19
-- TypeScript
-- Three.js / React Three Fiber
-- Tremor
-- Recharts
-- TailwindCSS
-- D3.js
+## 🛠️ Tecnologias que usamos
 
-## 📦 Instalação
+- Next.js 14 (pra fazer aquela aplicação React top)
+- TypeScript (porque tipo é vida)
+- Three.js / React Three Fiber (pros efeitos 3D)
+- Tremor (biblioteca de componentes pra dashboard)
+- TailwindCSS (pra estilizar sem sofrer)
+- D3.js (pra fazer gráficos bonitos)
 
-1. Clone o repositório:
+## 💻 Como rodar o projeto
+
+1. Primeiro, clona o repo:
 ```bash
 git clone https://github.com/JoaoEstevam01/Covid19-dashboard
 cd covid19-dashboard
 ```
 
-2. Instale as dependências:
+2. Instala as dependências:
 ```bash
 npm install
 ```
 
-## 🚀 Executando o Projeto
-
-1. Inicie o servidor de desenvolvimento:
+3. Roda o projeto:
 ```bash
 npm run dev
 ```
 
-2. Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
+4. Abre o [http://localhost:3000](http://localhost:3000) no navegador e aproveita! 🚀
 
-## 📝 Licença
+## 👥 Quem fez?
 
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+Esse projeto foi desenvolvido por uma galera muito legal da Unipê:
 
-## 🤝 Contribuindo
+- [João Estevam](https://github.com/JoaoEstevam01) - Dev Full Stack
+- [Isaquel Lael](https://github.com/imLaeL) - Back-end
+- [Alan Kristofer](https://github.com/alankristofer) - Front-end
+- [Eduardo Honório](https://github.com/eduhv01) - UI/UX
 
-Contribuições são bem-vindas! Por favor, leia as [diretrizes de contribuição](CONTRIBUTING.md) antes de enviar um pull request.
+## 🤝 Quer contribuir?
+
+A gente adora receber contribuições! Se você encontrou algum bug ou tem uma ideia legal, pode:
+
+1. Abrir uma issue descrevendo o problema/sugestão
+2. Fazer um fork do projeto
+3. Criar uma branch com sua alteração
+4. Fazer um pull request
+
+Ou se preferir, pode entrar em contato direto pelo email: joaoestevam.1204@gmail.com
+
+## 📊 Fonte dos Dados
+
+Os dados utilizados neste dashboard são obtidos de fontes oficiais:
+- Ministério da Saúde
+- Secretarias Estaduais de Saúde
+- OpenDataSUS
+
+---
+
+Feito com 💙 pela galera da Unipê

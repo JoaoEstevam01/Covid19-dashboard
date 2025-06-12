@@ -13,15 +13,8 @@ interface KPICardsProps {
 }
 
 export function KPICards({ data }: KPICardsProps) {
-  const calculatePercentage = (value: number, total: number) => {
-    return (value / total) * 100
-  }
-
-  const calculateChange = (value: number, total: number) => {
-    // Simulando uma variação com base nos números atuais
-    const previousValue = value * 0.95
-    return ((value - previousValue) / previousValue) * 100
-  }
+  const calculatePercentage = (value: number, total: number) => (value / total) * 100
+  const calculateChange = (value: number) => ((value - value * 0.95) / (value * 0.95)) * 100
 
   const kpiData = [
     {
@@ -30,7 +23,7 @@ export function KPICards({ data }: KPICardsProps) {
       icon: Users,
       color: 'blue',
       progress: 100,
-      change: calculateChange(data.totalCases, data.totalCases),
+      change: calculateChange(data.totalCases),
       changeDescription: 'em relação ao mês anterior',
       isNegativeGood: false
     },
@@ -40,7 +33,7 @@ export function KPICards({ data }: KPICardsProps) {
       icon: Activity,
       color: 'yellow',
       progress: calculatePercentage(data.activeCases, data.totalCases),
-      change: calculateChange(data.activeCases, data.totalCases),
+      change: calculateChange(data.activeCases),
       changeDescription: 'em relação ao mês anterior',
       isNegativeGood: true
     },
@@ -50,7 +43,7 @@ export function KPICards({ data }: KPICardsProps) {
       icon: Zap,
       color: 'emerald',
       progress: calculatePercentage(data.recovered, data.totalCases),
-      change: calculateChange(data.recovered, data.totalCases),
+      change: calculateChange(data.recovered),
       changeDescription: 'em relação ao mês anterior',
       isNegativeGood: false
     },
@@ -60,7 +53,7 @@ export function KPICards({ data }: KPICardsProps) {
       icon: Heart,
       color: 'red',
       progress: calculatePercentage(data.totalDeaths, data.totalCases),
-      change: calculateChange(data.totalDeaths, data.totalCases),
+      change: calculateChange(data.totalDeaths),
       changeDescription: 'em relação ao mês anterior',
       isNegativeGood: true
     },
