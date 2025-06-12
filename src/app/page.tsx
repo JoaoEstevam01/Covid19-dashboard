@@ -9,7 +9,7 @@ import { SymptomsStats } from '@/components/SymptomsStats'
 import { Grid, Col, Title, Text, Button } from '@tremor/react'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
-import { Globe, Map } from 'lucide-react'
+import { Globe, Map, Bot } from 'lucide-react'
 import { Card } from '@tremor/react'
 import Link from 'next/link'
 
@@ -17,6 +17,11 @@ export default function Dashboard() {
   const [viewMode, setViewMode] = useState<'brazil' | 'world'>('brazil')
   const [selectedPeriod, setSelectedPeriod] = useState('geral')
   const [isLoading, setIsLoading] = useState(false)
+  const [showChatbot, setShowChatbot] = useState(false)
+  const [chatInput, setChatInput] = useState('')
+  const [chatMessages, setChatMessages] = useState([
+    { from: 'bot', text: 'Olá, como posso ajudar?' }
+  ])
 
   const toggleView = () => {
     setIsLoading(true)
@@ -186,6 +191,31 @@ export default function Dashboard() {
     ],
   }
 
+  const predefinedQuestions = [
+    'Qual o número de afetados?',
+    'Qual o estado mais afetado?'
+  ]
+
+  function handleChatSend(e?: React.FormEvent) {
+    if (e) e.preventDefault()
+    if (!chatInput.trim()) return
+    const userMessage = chatInput.trim()
+    setChatMessages(msgs => [...msgs, { from: 'user', text: userMessage }])
+    let botReply = ''
+    if (userMessage === predefinedQuestions[0]) {
+      botReply = `O número de afetados é ${mockData.kpi.totalCases.toLocaleString('pt-BR')}.`
+    } else if (userMessage === predefinedQuestions[1]) {
+      const mostAffected = mockData.stateData.reduce((a, b) => a.cases > b.cases ? a : b)
+      botReply = `O estado mais afetado é ${mostAffected.state} com ${mostAffected.cases.toLocaleString('pt-BR')} casos.`
+    } else {
+      botReply = 'Estamos em manutenção, entre em contato mais tarde. Obrigado!'
+    }
+    setTimeout(() => {
+      setChatMessages(msgs => [...msgs, { from: 'bot', text: botReply }])
+    }, 500)
+    setChatInput('')
+  }
+
   if (viewMode === 'world') {
     return (
       <div className="min-h-screen bg-emerald-950/90 space-y-6 p-6 relative transition-colors duration-500">
@@ -335,6 +365,58 @@ export default function Dashboard() {
         </Link>
       </div>
     </motion.div>
+
+    {/* Chatbot flutuante - sempre visível */}
+    <div className="fixed bottom-28 right-6 z-50">
+      <button
+        className="bg-emerald-600 hover:bg-emerald-700 rounded-full p-4 shadow-lg flex items-center justify-center"
+        onClick={() => setShowChatbot(v => !v)}
+        aria-label="Abrir chatbot"
+      >
+        <Bot className="w-7 h-7 text-white" />
+      </button>
+      {showChatbot && (
+        <div className="mt-4 w-80 bg-white rounded-xl shadow-2xl border border-emerald-200 flex flex-col overflow-hidden animate-fade-in">
+          <div className="flex items-center gap-2 bg-emerald-600 px-4 py-3">
+            <Bot className="w-6 h-6 text-white" />
+            <span className="text-white font-semibold">Chatbot</span>
+          </div>
+          <div className="flex-1 px-4 py-2 max-h-64 overflow-y-auto space-y-2 bg-emerald-50">
+            {chatMessages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}>
+                <div className={`rounded-lg px-3 py-2 text-sm ${msg.from === 'bot' ? 'bg-emerald-100 text-emerald-900' : 'bg-emerald-600 text-white'}`}>{msg.text}</div>
+              </div>
+            ))}
+          </div>
+          <form onSubmit={handleChatSend} className="flex flex-col gap-2 px-4 py-2 bg-emerald-100">
+            <div className="flex gap-2 mb-1">
+              {predefinedQuestions.map(q => (
+                <button
+                  type="button"
+                  key={q}
+                  className="bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded px-2 py-1 text-xs border border-emerald-300"
+                  onClick={() => { setChatInput(q); setTimeout(() => handleChatSend(), 100) }}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <input
+                className="flex-1 rounded px-2 py-1 border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                placeholder="Digite sua pergunta..."
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded px-3 py-1 font-semibold"
+              >Enviar</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
     </>
   )
 }
