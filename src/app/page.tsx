@@ -203,6 +203,7 @@ export default function Dashboard() {
   const filteredTimelineData = filterDataByPeriod(mockData.timelineData)
 
   return (
+    <>
     <div className="min-h-screen bg-gray-900 space-y-6 p-4 md:p-6 relative transition-colors duration-500">
       <motion.header
         initial={{ opacity: 0, y: -20 }}
@@ -243,7 +244,6 @@ export default function Dashboard() {
         className="mt-12"
       >
         <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
-          <Title className="text-xl text-gray-100 mb-6">Insights e Tendências</Title>
           <InsightsDashboard
             data={filteredTimelineData}
             trends={mockData.trends}
@@ -253,42 +253,26 @@ export default function Dashboard() {
       </motion.div>
 
       <Grid numItems={1} numItemsLg={2} className="gap-6 mt-6">
-        <Col>
+        <Col numColSpan={1} numColSpanLg={2}>
           <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
             <Title className="text-xl text-gray-100 mb-6">Distribuição de Casos</Title>
-            <DonutChart data={mockData.stateData} />
+            <DonutChart data={mockData.kpi} />
           </Card>
         </Col>
-        <Col>
+        <Col numColSpan={1} numColSpanLg={2}>
           <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
-            <Title className="text-xl text-gray-100 mb-6">Dados por Estado</Title>
             <StatesTable data={mockData.stateData} />
           </Card>
         </Col>
       </Grid>
 
-      <div className="fixed bottom-0 left-0 right-0 bg-gray-900/95 backdrop-blur-sm border-t border-gray-700/50 py-4 z-50">
-        <div className="container mx-auto px-4">
-          <div className="flex justify-center">
-            <Link 
-              href="/doacoes" 
-              className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg text-lg font-semibold transition-colors"
-            >
-              Faça uma Doação
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <motion.footer
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.5, delay: 1 }}
-        className="text-center mt-12 text-gray-400 text-sm"
+        className="mt-12 pb-8 text-center text-gray-400 text-sm"
       >
-        <Text>
-          Dados atualizados em tempo real | Fonte: Ministério da Saúde
-        </Text>
+        <p>Dados atualizados em tempo real. Fonte: Ministério da Saúde</p>
       </motion.footer>
 
       <motion.div
@@ -298,7 +282,7 @@ export default function Dashboard() {
       >
         <Button
           size="lg"
-          className="bg-blue-600 hover:bg-blue-700"
+          className="bg-emerald-600 hover:bg-emerald-700"
           onClick={toggleView}
           icon={Globe}
           disabled={isLoading}
@@ -307,5 +291,22 @@ export default function Dashboard() {
         </Button>
       </motion.div>
     </div>
+
+    <motion.div 
+      className="w-full bg-gray-900 py-6 border-t border-gray-700"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.8 }}
+    >
+      <div className="container mx-auto px-4 text-center">
+        <Link 
+          href="/doacoes" 
+          className="inline-block bg-blue-600 hover:bg-blue-700 text-white px-12 py-4 rounded-lg text-xl font-semibold transition-colors shadow-lg hover:shadow-xl"
+        >
+          Faça uma Doação
+        </Link>
+      </div>
+    </motion.div>
+    </>
   )
 }

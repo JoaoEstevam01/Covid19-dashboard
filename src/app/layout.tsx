@@ -21,13 +21,6 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" className={`${inter.variable} dark`}>
       <body className="bg-gray-900 text-gray-100 min-h-screen">
-        <header className="bg-gray-800 py-4">
-          <div className="container mx-auto px-4">
-            <Link href="/" className="text-xl font-bold">
-              Dashboard COVID-19
-            </Link>
-          </div>
-        </header>
         <main className="container mx-auto px-4 py-8">{children}</main>
       </body>
     </html>

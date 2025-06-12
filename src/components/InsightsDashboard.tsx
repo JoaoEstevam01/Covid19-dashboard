@@ -33,8 +33,6 @@ const InsightsDashboard = ({ data, trends, selectedPeriod }: InsightsDashboardPr
       transition={{ duration: 0.5 }}
       className="space-y-6"
     >
-      <Title className="text-2xl font-bold mb-4 text-gray-100">Insights e Tendências</Title>
-
       <Grid numItems={1} numItemsLg={2} className="gap-6">
         <Col numColSpan={1} numColSpanLg={2}>
           <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
@@ -92,7 +90,6 @@ const InsightsDashboard = ({ data, trends, selectedPeriod }: InsightsDashboardPr
       </Grid>
 
       <Card className="bg-gray-800/50 backdrop-blur-sm border-gray-700/50">
-        <Title className="text-xl text-gray-100 mb-4">Insights e Tendências</Title>
         <Grid numItems={1} numItemsLg={2} className="gap-6">
           {trends.map((trend, index) => (
             <Col key={trend.name}>
