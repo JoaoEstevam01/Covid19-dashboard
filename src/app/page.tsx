@@ -226,58 +226,6 @@ export default function Dashboard() {
             {isLoading ? 'Carregando...' : 'Alternar para Visão Brasil'}
           </Button>
         </motion.div>
-
-        {/* Chatbot flutuante */}
-        <div className="fixed bottom-28 right-6 z-50">
-          <button
-            className="bg-emerald-600 hover:bg-emerald-700 rounded-full p-4 shadow-lg flex items-center justify-center"
-            onClick={() => setShowChatbot(v => !v)}
-            aria-label="Abrir chatbot"
-          >
-            <Bot className="w-7 h-7 text-white" />
-          </button>
-          {showChatbot && (
-            <div className="mt-4 w-80 bg-white rounded-xl shadow-2xl border border-emerald-200 flex flex-col overflow-hidden animate-fade-in">
-              <div className="flex items-center gap-2 bg-emerald-600 px-4 py-3">
-                <Bot className="w-6 h-6 text-white" />
-                <span className="text-white font-semibold">Chatbot</span>
-              </div>
-              <div className="flex-1 px-4 py-2 max-h-64 overflow-y-auto space-y-2 bg-emerald-50">
-                {chatMessages.map((msg, i) => (
-                  <div key={i} className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}>
-                    <div className={`rounded-lg px-3 py-2 text-sm ${msg.from === 'bot' ? 'bg-emerald-100 text-emerald-900' : 'bg-emerald-600 text-white'}`}>{msg.text}</div>
-                  </div>
-                ))}
-              </div>
-              <form onSubmit={handleChatSend} className="flex flex-col gap-2 px-4 py-2 bg-emerald-100">
-                <div className="flex gap-2 mb-1">
-                  {predefinedQuestions.map(q => (
-                    <button
-                      type="button"
-                      key={q}
-                      className="bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded px-2 py-1 text-xs border border-emerald-300"
-                      onClick={() => { setChatInput(q); setTimeout(() => handleChatSend(), 100) }}
-                    >
-                      {q}
-                    </button>
-                  ))}
-                </div>
-                <div className="flex gap-2">
-                  <input
-                    className="flex-1 rounded px-2 py-1 border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
-                    placeholder="Digite sua pergunta..."
-                    value={chatInput}
-                    onChange={e => setChatInput(e.target.value)}
-                  />
-                  <button
-                    type="submit"
-                    className="bg-emerald-600 hover:bg-emerald-700 text-white rounded px-3 py-1 font-semibold"
-                  >Enviar</button>
-                </div>
-              </form>
-            </div>
-          )}
-        </div>
       </div>
     )
   }
@@ -389,6 +337,58 @@ export default function Dashboard() {
         </Link>
       </div>
     </motion.div>
+
+    {/* Chatbot flutuante - sempre visível */}
+    <div className="fixed bottom-28 right-6 z-50">
+      <button
+        className="bg-emerald-600 hover:bg-emerald-700 rounded-full p-4 shadow-lg flex items-center justify-center"
+        onClick={() => setShowChatbot(v => !v)}
+        aria-label="Abrir chatbot"
+      >
+        <Bot className="w-7 h-7 text-white" />
+      </button>
+      {showChatbot && (
+        <div className="mt-4 w-80 bg-white rounded-xl shadow-2xl border border-emerald-200 flex flex-col overflow-hidden animate-fade-in">
+          <div className="flex items-center gap-2 bg-emerald-600 px-4 py-3">
+            <Bot className="w-6 h-6 text-white" />
+            <span className="text-white font-semibold">Chatbot</span>
+          </div>
+          <div className="flex-1 px-4 py-2 max-h-64 overflow-y-auto space-y-2 bg-emerald-50">
+            {chatMessages.map((msg, i) => (
+              <div key={i} className={`flex ${msg.from === 'bot' ? 'justify-start' : 'justify-end'}`}>
+                <div className={`rounded-lg px-3 py-2 text-sm ${msg.from === 'bot' ? 'bg-emerald-100 text-emerald-900' : 'bg-emerald-600 text-white'}`}>{msg.text}</div>
+              </div>
+            ))}
+          </div>
+          <form onSubmit={handleChatSend} className="flex flex-col gap-2 px-4 py-2 bg-emerald-100">
+            <div className="flex gap-2 mb-1">
+              {predefinedQuestions.map(q => (
+                <button
+                  type="button"
+                  key={q}
+                  className="bg-emerald-200 hover:bg-emerald-300 text-emerald-900 rounded px-2 py-1 text-xs border border-emerald-300"
+                  onClick={() => { setChatInput(q); setTimeout(() => handleChatSend(), 100) }}
+                >
+                  {q}
+                </button>
+              ))}
+            </div>
+            <div className="flex gap-2">
+              <input
+                className="flex-1 rounded px-2 py-1 border border-emerald-300 focus:outline-none focus:ring-2 focus:ring-emerald-400"
+                placeholder="Digite sua pergunta..."
+                value={chatInput}
+                onChange={e => setChatInput(e.target.value)}
+              />
+              <button
+                type="submit"
+                className="bg-emerald-600 hover:bg-emerald-700 text-white rounded px-3 py-1 font-semibold"
+              >Enviar</button>
+            </div>
+          </form>
+        </div>
+      )}
+    </div>
     </>
   )
 }
