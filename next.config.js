@@ -1,5 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  output: 'export',
+  basePath: '/Covid19-dashboard',
+  images: {
+    unoptimized: true,
+  },
   reactStrictMode: true,
   swcMinify: true,
   transpilePackages: ['three', '@react-three/fiber', '@react-three/drei'],

@@ -103,6 +103,7 @@ const RegionMesh = ({ region, selected, onSelect }: RegionMeshProps) => {
       >
         <boxGeometry args={[1.5, height, 1.5]} />
         <meshStandardMaterial
+          attach="material"
           color={selected ? '#60A5FA' : region.color}
           metalness={0.5}
           roughness={0.5}
@@ -146,7 +147,7 @@ const periods = [
   { value: '2024.2', label: '2º Semestre 2024' }
 ]
 
-const BrazilMap = ({ data }: BrazilMapProps) => {
+const BrazilMap = ({ data = [] }: BrazilMapProps) => {
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [selectedPeriod, setSelectedPeriod] = useState('2024.1')
 
@@ -155,10 +156,10 @@ const BrazilMap = ({ data }: BrazilMapProps) => {
     const regionData = data.filter(item => region.states.includes(item.state))
     return {
       ...region,
-      cases: regionData.reduce((sum, item) => sum + item.cases, 0),
-      deaths: regionData.reduce((sum, item) => sum + item.deaths, 0),
-      recovered: regionData.reduce((sum, item) => sum + item.recovered, 0),
-      inflation: regionData.reduce((sum, item) => sum + (item.inflation || 0), 0) / regionData.length
+      cases: regionData.reduce((sum, item) => sum + (item.cases || 0), 0),
+      deaths: regionData.reduce((sum, item) => sum + (item.deaths || 0), 0),
+      recovered: regionData.reduce((sum, item) => sum + (item.recovered || 0), 0),
+      inflation: regionData.reduce((sum, item) => sum + (item.inflation || 0), 0) / (regionData.length || 1)
     }
   })
 
