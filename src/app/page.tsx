@@ -79,14 +79,14 @@ export default function Dashboard() {
     },
     symptoms: {
       symptoms: [
-        { name: 'Febre', percentage: 87, severity: 'high' },
-        { name: 'Tosse Seca', percentage: 68, severity: 'high' },
-        { name: 'Fadiga', percentage: 38, severity: 'medium' },
-        { name: 'Perda de Paladar', percentage: 23, severity: 'medium' },
-        { name: 'Perda de Olfato', percentage: 21, severity: 'medium' },
-        { name: 'Dificuldade Respiratória', percentage: 19, severity: 'high' },
-        { name: 'Dores Musculares', percentage: 15, severity: 'low' },
-        { name: 'Dor de Garganta', percentage: 14, severity: 'low' }
+        { name: 'Febre', percentage: 87, severity: 'high' as const },
+        { name: 'Tosse Seca', percentage: 68, severity: 'high' as const },
+        { name: 'Fadiga', percentage: 38, severity: 'medium' as const },
+        { name: 'Perda de Paladar', percentage: 23, severity: 'medium' as const },
+        { name: 'Perda de Olfato', percentage: 21, severity: 'medium' as const },
+        { name: 'Dificuldade Respiratória', percentage: 19, severity: 'high' as const },
+        { name: 'Dores Musculares', percentage: 15, severity: 'low' as const },
+        { name: 'Dor de Garganta', percentage: 14, severity: 'low' as const }
       ],
       statistics: {
         averageRecoveryTime: 14,
@@ -307,7 +307,7 @@ export default function Dashboard() {
         transition={{ duration: 0.5, delay: 0.7 }}
         className="mt-12"
       >
-        <SymptomsStats data={mockData.symptoms} />
+        <SymptomsStats data={mockData.symptoms as any} />
       </motion.div>
 
       <Grid numItems={1} numItemsLg={2} className="gap-6 mt-12">
