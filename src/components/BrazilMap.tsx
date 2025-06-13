@@ -3,17 +3,20 @@
 
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { Card, Title, Text as TremorText, Select, SelectItem } from '@tremor/react'
 import { motion } from 'framer-motion'
 import { Filter } from 'lucide-react'
-import { Mesh } from 'three'
 import dynamic from 'next/dynamic'
 
-const ThreeCanvas = dynamic(() => import('@react-three/fiber').then(mod => mod.Canvas), { ssr: false })
-const ThreeOrbitControls = dynamic(() => import('@react-three/drei').then(mod => mod.OrbitControls), { ssr: false })
-const ThreeCenter = dynamic(() => import('@react-three/drei').then(mod => mod.Center), { ssr: false })
-const ThreeText = dynamic(() => import('@react-three/drei').then(mod => mod.Text), { ssr: false })
+const Scene = dynamic(() => import('./Scene').then((mod) => mod.Scene), {
+  ssr: false,
+  loading: () => (
+    <div className="h-[450px] bg-gray-800/50 rounded-xl animate-pulse flex items-center justify-center">
+      <span className="text-gray-400">Carregando visualização 3D...</span>
+    </div>
+  ),
+})
 
 interface RegionData {
   name: string
@@ -79,60 +82,6 @@ const regions: RegionData[] = [
   }
 ]
 
-interface RegionMeshProps {
-  region: RegionData
-  selected: boolean
-  onSelect: (name: string) => void
-}
-
-const RegionMesh = ({ region, selected, onSelect }: RegionMeshProps) => {
-  const meshRef = useRef<Mesh>(null)
-  const [hovered, setHovered] = useState(false)
-
-  const scale = selected ? 1.2 : hovered ? 1.1 : 1
-  const height = Math.log(region.cases + 1) / 10
-
-  return (
-    <group position={region.position}>
-      <mesh
-        ref={meshRef}
-        onPointerOver={() => setHovered(true)}
-        onPointerOut={() => setHovered(false)}
-        onClick={() => onSelect(region.name)}
-        scale={[scale, scale, scale]}
-      >
-        <boxGeometry args={[1.5, height, 1.5]} />
-        <meshStandardMaterial
-          color={selected ? '#60A5FA' : region.color}
-          metalness={0.5}
-          roughness={0.5}
-          transparent
-          opacity={0.8}
-        />
-      </mesh>
-      <ThreeText
-        position={[0, height + 0.5, 0]}
-        fontSize={0.3}
-        color={selected ? '#60A5FA' : '#FFFFFF'}
-        anchorX="center"
-        anchorY="middle"
-      >
-        {region.name}
-      </ThreeText>
-    </group>
-  )
-}
-
-interface BrazilMapProps {
-  data: {
-    state: string
-    cases: number
-    deaths: number
-    recovered: number
-    inflation: number
-  }[]
-}
-
 const periods = [
   { value: '2020.1', label: '1º Semestre 2020' },
   { value: '2020.2', label: '2º Semestre 2020' },
@@ -146,11 +95,20 @@ const periods = [
   { value: '2024.2', label: '2º Semestre 2024' }
 ]
 
+interface BrazilMapProps {
+  data: {
+    state: string
+    cases: number
+    deaths: number
+    recovered: number
+    inflation: number
+  }[]
+}
+
 const BrazilMap = ({ data }: BrazilMapProps) => {
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [selectedPeriod, setSelectedPeriod] = useState('2024.1')
 
-  // Atualiza os dados das regiões com base nos dados dos estados
   const updatedRegions = regions.map(region => {
     const regionData = data.filter(item => region.states.includes(item.state))
     return {
@@ -186,27 +144,11 @@ const BrazilMap = ({ data }: BrazilMapProps) => {
       
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
         <div className="lg:col-span-2 h-[450px]">
-          <ThreeCanvas camera={{ position: [8, 8, 8], fov: 50 }}>
-            <ambientLight intensity={0.5} />
-            <pointLight position={[10, 10, 10]} />
-            <ThreeCenter>
-              {updatedRegions.map((region) => (
-                <RegionMesh
-                  key={region.name}
-                  region={region}
-                  selected={selectedRegion === region.name}
-                  onSelect={setSelectedRegion}
-                />
-              ))}
-            </ThreeCenter>
-            <ThreeOrbitControls
-              enablePan={true}
-              enableZoom={true}
-              enableRotate={true}
-              autoRotate={true}
-              autoRotateSpeed={0.5}
-            />
-          </ThreeCanvas>
+          <Scene
+            regions={updatedRegions}
+            selectedRegion={selectedRegion}
+            onSelectRegion={setSelectedRegion}
+          />
         </div>
 
         <div className="bg-gray-800/50 rounded-xl p-4">

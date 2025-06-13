@@ -12,6 +12,11 @@ import { useState } from 'react'
 import { Globe, Map, Bot } from 'lucide-react'
 import { Card } from '@tremor/react'
 import Link from 'next/link'
+import { BrazilMap } from '@/components/BrazilMap'
+import { InflationChart } from '@/components/InflationChart'
+import { CasesChart } from '@/components/CasesChart'
+import { DeathsChart } from '@/components/DeathsChart'
+import { RecoveredChart } from '@/components/RecoveredChart'
 
 export default function Dashboard() {
   const [viewMode, setViewMode] = useState<'brazil' | 'world'>('brazil')
@@ -95,34 +100,196 @@ export default function Dashboard() {
         asymptomaticRate: 40
       }
     },
-    stateData: [
-      { state: 'SP', cases: 6889543, deaths: 177853, recovered: 6623478, inflation: 5.2 },
-      { state: 'RJ', cases: 2789654, deaths: 76543, recovered: 2698765, inflation: 5.5 },
-      { state: 'MG', cases: 2187654, deaths: 54321, recovered: 2098765, inflation: 4.8 },
-      { state: 'BA', cases: 1876543, deaths: 43210, recovered: 1798765, inflation: 6.1 },
-      { state: 'PR', cases: 1654321, deaths: 32109, recovered: 1598765, inflation: 4.9 },
-      { state: 'RS', cases: 1543210, deaths: 29876, recovered: 1498765, inflation: 4.7 },
-      { state: 'PE', cases: 1432109, deaths: 27654, recovered: 1398765, inflation: 5.8 },
-      { state: 'CE', cases: 1321098, deaths: 25432, recovered: 1298765, inflation: 5.9 },
-      { state: 'PA', cases: 1210987, deaths: 23210, recovered: 1198765, inflation: 6.2 },
-      { state: 'SC', cases: 1109876, deaths: 21098, recovered: 1098765, inflation: 4.6 },
-      { state: 'AM', cases: 987654, deaths: 19876, recovered: 958765, inflation: 6.5 },
-      { state: 'GO', cases: 876543, deaths: 17654, recovered: 858765, inflation: 5.1 },
-      { state: 'MA', cases: 765432, deaths: 15432, recovered: 748765, inflation: 6.3 },
-      { state: 'ES', cases: 654321, deaths: 13210, recovered: 638765, inflation: 5.0 },
-      { state: 'MT', cases: 543210, deaths: 11098, recovered: 528765, inflation: 5.3 },
-      { state: 'DF', cases: 432109, deaths: 9876, recovered: 418765, inflation: 4.9 },
-      { state: 'MS', cases: 321098, deaths: 7654, recovered: 308765, inflation: 5.0 },
-      { state: 'PB', cases: 210987, deaths: 5432, recovered: 198765, inflation: 5.7 },
-      { state: 'RN', cases: 198765, deaths: 4321, recovered: 188765, inflation: 5.6 },
-      { state: 'AL', cases: 187654, deaths: 3210, recovered: 178765, inflation: 5.9 },
-      { state: 'PI', cases: 176543, deaths: 2987, recovered: 168765, inflation: 6.0 },
-      { state: 'SE', cases: 165432, deaths: 2765, recovered: 158765, inflation: 5.8 },
-      { state: 'RO', cases: 154321, deaths: 2543, recovered: 148765, inflation: 5.4 },
-      { state: 'TO', cases: 143210, deaths: 2321, recovered: 138765, inflation: 5.5 },
-      { state: 'AC', cases: 132109, deaths: 2109, recovered: 128765, inflation: 5.6 },
-      { state: 'AP', cases: 121098, deaths: 1987, recovered: 118765, inflation: 5.7 },
-      { state: 'RR', cases: 110987, deaths: 1765, recovered: 108765, inflation: 5.8 }
+    states: [
+      {
+        state: 'SP',
+        cases: 6674225,
+        deaths: 177937,
+        recovered: 6496288,
+        inflation: 5.2
+      },
+      {
+        state: 'RJ',
+        cases: 2825457,
+        deaths: 76875,
+        recovered: 2748582,
+        inflation: 5.5
+      },
+      {
+        state: 'MG',
+        cases: 4157852,
+        deaths: 64512,
+        recovered: 4093340,
+        inflation: 4.8
+      },
+      {
+        state: 'ES',
+        cases: 1487632,
+        deaths: 15987,
+        recovered: 1471645,
+        inflation: 4.9
+      },
+      {
+        state: 'PR',
+        cases: 2874521,
+        deaths: 45987,
+        recovered: 2828534,
+        inflation: 4.7
+      },
+      {
+        state: 'SC',
+        cases: 2154789,
+        deaths: 22145,
+        recovered: 2132644,
+        inflation: 4.6
+      },
+      {
+        state: 'RS',
+        cases: 2987456,
+        deaths: 41254,
+        recovered: 2946202,
+        inflation: 4.8
+      },
+      {
+        state: 'BA',
+        cases: 1987456,
+        deaths: 31254,
+        recovered: 1956202,
+        inflation: 5.1
+      },
+      {
+        state: 'SE',
+        cases: 487456,
+        deaths: 7254,
+        recovered: 480202,
+        inflation: 5.3
+      },
+      {
+        state: 'AL',
+        cases: 587456,
+        deaths: 8254,
+        recovered: 579202,
+        inflation: 5.4
+      },
+      {
+        state: 'PE',
+        cases: 1287456,
+        deaths: 21254,
+        recovered: 1266202,
+        inflation: 5.2
+      },
+      {
+        state: 'PB',
+        cases: 687456,
+        deaths: 11254,
+        recovered: 676202,
+        inflation: 5.3
+      },
+      {
+        state: 'RN',
+        cases: 587456,
+        deaths: 9254,
+        recovered: 578202,
+        inflation: 5.2
+      },
+      {
+        state: 'CE',
+        cases: 1387456,
+        deaths: 24254,
+        recovered: 1363202,
+        inflation: 5.1
+      },
+      {
+        state: 'PI',
+        cases: 487456,
+        deaths: 8254,
+        recovered: 479202,
+        inflation: 5.3
+      },
+      {
+        state: 'MA',
+        cases: 787456,
+        deaths: 14254,
+        recovered: 773202,
+        inflation: 5.4
+      },
+      {
+        state: 'PA',
+        cases: 987456,
+        deaths: 17254,
+        recovered: 970202,
+        inflation: 5.6
+      },
+      {
+        state: 'AP',
+        cases: 287456,
+        deaths: 4254,
+        recovered: 283202,
+        inflation: 5.7
+      },
+      {
+        state: 'AM',
+        cases: 687456,
+        deaths: 12254,
+        recovered: 675202,
+        inflation: 5.5
+      },
+      {
+        state: 'RR',
+        cases: 187456,
+        deaths: 3254,
+        recovered: 184202,
+        inflation: 5.8
+      },
+      {
+        state: 'RO',
+        cases: 387456,
+        deaths: 6254,
+        recovered: 381202,
+        inflation: 5.6
+      },
+      {
+        state: 'AC',
+        cases: 287456,
+        deaths: 4254,
+        recovered: 283202,
+        inflation: 5.7
+      },
+      {
+        state: 'TO',
+        cases: 387456,
+        deaths: 6254,
+        recovered: 381202,
+        inflation: 5.5
+      },
+      {
+        state: 'MT',
+        cases: 787456,
+        deaths: 13254,
+        recovered: 774202,
+        inflation: 4.9
+      },
+      {
+        state: 'MS',
+        cases: 587456,
+        deaths: 9254,
+        recovered: 578202,
+        inflation: 4.8
+      },
+      {
+        state: 'GO',
+        cases: 1187456,
+        deaths: 19254,
+        recovered: 1168202,
+        inflation: 4.7
+      },
+      {
+        state: 'DF',
+        cases: 887456,
+        deaths: 15254,
+        recovered: 872202,
+        inflation: 4.6
+      }
     ],
     timelineData: Array.from({ length: 66 }, (_, i) => {
       const date = new Date(2020, i, 1);
@@ -205,7 +372,7 @@ export default function Dashboard() {
     if (userMessage === predefinedQuestions[0]) {
       botReply = `O número de afetados é ${mockData.kpi.totalCases.toLocaleString('pt-BR')}.`
     } else if (userMessage === predefinedQuestions[1]) {
-      const mostAffected = mockData.stateData.reduce((a, b) => a.cases > b.cases ? a : b)
+      const mostAffected = mockData.states.reduce((a, b) => a.cases > b.cases ? a : b)
       botReply = `O estado mais afetado é ${mostAffected.state} com ${mostAffected.cases.toLocaleString('pt-BR')} casos.`
     } else {
       botReply = 'Estamos em manutenção, entre em contato mais tarde. Obrigado!'
@@ -281,7 +448,7 @@ export default function Dashboard() {
         className="mt-6"
       >
         <RegionalMap 
-          data={mockData.stateData} 
+          data={mockData.states} 
           onPeriodChange={handlePeriodChange}
         />
       </motion.div>
@@ -307,7 +474,7 @@ export default function Dashboard() {
         transition={{ duration: 0.5, delay: 0.7 }}
         className="mt-12"
       >
-        <SymptomsStats data={mockData.symptoms as any} />
+        <SymptomsStats data={mockData.symptoms} />
       </motion.div>
 
       <Grid numItems={1} numItemsLg={2} className="gap-6 mt-12">
@@ -319,7 +486,7 @@ export default function Dashboard() {
         </Col>
         <Col numColSpan={1} numColSpanLg={2}>
           <Card className="bg-gray-900/50 backdrop-blur-sm border-gray-700/50">
-            <StatesTable data={mockData.stateData} />
+            <StatesTable data={mockData.states} />
           </Card>
         </Col>
       </Grid>
