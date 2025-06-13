@@ -105,7 +105,7 @@ interface BrazilMapProps {
   }[]
 }
 
-const BrazilMap = ({ data }: BrazilMapProps) => {
+export const BrazilMap = ({ data }: BrazilMapProps) => {
   const [selectedRegion, setSelectedRegion] = useState<string>('')
   const [selectedPeriod, setSelectedPeriod] = useState('2024.1')
 
@@ -179,6 +179,4 @@ const BrazilMap = ({ data }: BrazilMapProps) => {
       </div>
     </Card>
   )
-}
-
-export default BrazilMap 
+} 
